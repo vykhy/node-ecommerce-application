@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+</head>
+<body>
+    <% categories.forEach((category) => { %> 
+        <h1>Category - <%=category.name %> </h1>
+        <p><%= category.description %> </p>
+        <% category.attributes.forEach(function(attribute){ %> 
+        <div><%= attribute %></div>  
+        <% }) %> 
+        <a href="/categories/update/<%=category._id%> ">Update</a>
+        <a href="/categories/delete/<%=category._id%> ">Delete</a>
+        <div><%=category._id%></div>
+    <% }) %>   
+</body>
+</html>

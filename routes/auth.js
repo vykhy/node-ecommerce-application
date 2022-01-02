@@ -3,7 +3,7 @@ const authController = require('../controllers/authController')
 
 //return page with signup form
 router.get('/signup', ( req, res ) => {
-    res.render('signup')
+    res.render('auth/signup')
 })
 
 /**
@@ -24,7 +24,7 @@ router.post('/signup', async ( req, res ) => {
  * return page with login form
  */
 router.get('/login', ( req, res ) => {
-    res.render('login')
+    res.render('auth/login')
 })
 /**
  * process login request
@@ -32,7 +32,7 @@ router.get('/login', ( req, res ) => {
  */
 router.post('/login', async ( req, res ) => {
     let success = await authController.userLogin( req, res, false )
-    if(success) res.redirect('/protected')
+    if(success) res.redirect('/')
 })
 
 /**

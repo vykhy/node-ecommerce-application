@@ -7,13 +7,14 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
-const userSession = require('./middlewares/userSession')
 
 //CONSTANTS
 env.config()
 const PORT = process.env.APP_PORT
 
+//ROUTERS
 const authRouter = require('./routes/auth')
+const categoryRouter = require('./routes/category')
 
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(__dirname));
@@ -43,6 +44,7 @@ app.get('/', (req, res ) => {
     res.render('home')
 })
 app.use('/auth', authRouter)
+app.use('/categories', categoryRouter)
 
 //test route
 app.get('/protected', ( req, res ) => {
