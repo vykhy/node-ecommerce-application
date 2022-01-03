@@ -8,7 +8,7 @@ router.get('/create', productController.getChooseCategory)
 router.post('/create/category', productController.chooseCategory)
 
 //create a product
-router.post('/create', productController.createProduct)
+router.post('/create/:catid', productController.createProduct)
 
 //get a product
 router.get('/:id', productController.getProduct)

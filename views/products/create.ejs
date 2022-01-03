@@ -8,7 +8,7 @@
 </head>
 <body>
     <h3>New Product - <%= category.name %>  </h3>
-    <form action="/products/create" method="post">
+    <form action="/products/create/<%=category._id%> " method="post">
         <div class="input-group">
             <label>Name: </label>
             <input type="text" name="name" id="" <% if(locals.name){ %>value="<%=name%>">   <% } %>
@@ -23,11 +23,11 @@
         </div>
         <div class="input-group">
             <label>Price: </label>
-            <input type="text" name="price" id="" <% if(locals.price){ %>value="<%=price%>">   <% } %>
+            <input type="number" name="price" id="" <% if(locals.price){ %>value="<%=price%>">   <% } %>
         </div>
         <div class="input-group">
             <label>Selling Price: </label>
-            <input type="text" name="sellingPrice" id="" <% if(locals.sellingPrice){ %>value="<%=sellingPrice%>">   <% } %>
+            <input type="number" name="sellingPrice" id="" <% if(locals.sellingPrice){ %>value="<%=sellingPrice%>">   <% } %>
         </div>
         <% category.attributes.forEach((attribute) => {  %> 
             <div class="input-group">

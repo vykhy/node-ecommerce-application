@@ -36,6 +36,8 @@ app.use(session({
 }))
 
 app.use(function(req, res, next) {
+    req.session.uid = 'uikdhcyeh462j'
+    req.session.user = 'Vykhy the billionaire'
     res.locals.user = req.session.user;
     next();
 });

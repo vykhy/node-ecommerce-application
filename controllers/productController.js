@@ -45,12 +45,14 @@ exports.chooseCategory = async ( req, res ) => {
 
 exports.createProduct = async ( req, res ) => {
     const { name, description, longDescription, price, sellingPrice, ...data } = req.body
+    const catId = req.params.catId
 
     try{
         const product = await Product.create({
             _id: name, description, longDescription, price, sellingPrice,
+            category: catId,
             details: data,
-            creator: 'Kono Ore da.'
+            creator: req.session.uid
         })
         if(product){
             res.redirect(`/products/${product._id}`)
