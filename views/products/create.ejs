@@ -8,6 +8,7 @@
 </head>
 <body>
     <h3>New Product - <%= category.name %>  </h3>
+    <% if(locals.name){ %>Error: <%=error%>  <% } %>
     <form action="/products/create/<%=category._id%> " method="post">
         <div class="input-group">
             <label>Name: </label>

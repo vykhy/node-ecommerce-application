@@ -8,7 +8,7 @@ router.get('/create', productController.getChooseCategory)
 router.post('/create/category', productController.chooseCategory)
 
 //create a product
-router.post('/create/:catid', productController.createProduct)
+router.post('/create/:catId', productController.createProduct)
 
 //get a product
 router.get('/:id', productController.getProduct)
@@ -17,8 +17,7 @@ router.get('/:id', productController.getProduct)
 router.get('/', productController.getAllProducts)
 
 //get products from a category
-router.get('/:category', productController.getCategoryProducts)
-
+router.get('/category/:catId', productController.getCategoryProducts)
 
 //view to update a product
 router.get('/update/:id', productController.getUpdateProduct)

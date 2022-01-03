@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Product = new mongoose.Schema({
-    _id: {
+    name: {
         type: String,
         min: 4,
         max: 30,
