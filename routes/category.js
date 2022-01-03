@@ -6,6 +6,7 @@ const categoryController = require('../controllers/categoryController')
 router.get('/', async ( req, res ) => {
     try{
         const categories = await Category.find()
+        if(categories.length < 1 ) return res.send('No Categories exist at this moment')
         res.render('categories/categories', { categories })
     }
     catch(error){ res.send(error.message) }

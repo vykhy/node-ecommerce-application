@@ -22,7 +22,7 @@ exports.getOneCategory = async ( req, res ) => {
  */
 exports.createCategory = async ( req, res ) => {
     const { name, description, attributes } = req.body
-    const attributesArray = attributes.split('\n')
+    const attributesArray = attributes.split('\r\n')
 
     try{
         const category = await Category.create({

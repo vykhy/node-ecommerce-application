@@ -20,6 +20,8 @@ const User = new mongoose.Schema({
         default: false,
         required: false
     }
+},{
+    timestamps: true
 }
 )
 

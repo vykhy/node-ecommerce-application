@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Product = new mongoose.Schema({
-    name: {
+    _id: {
         type: String,
         min: 4,
         max: 30,
@@ -19,20 +19,30 @@ const Product = new mongoose.Schema({
         required: false
     },
     details: {
-        type: Array,
-        default: []
+        type: Object,
+        default: {}
     },
     price: {
-        type: number,
+        type: Number,
         required: true
     },
     sellingPrice: {
-        type: number,
+        type: Number,
         required: true
     },
     sellerId: {
         type: String
+    },
+    creator: {
+        type: String,
+        required: true
+    },
+    available: {
+        type: Boolean,
+        default: true
     }
+},{
+    timestamps: true
 }
 )
 

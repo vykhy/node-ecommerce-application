@@ -15,6 +15,7 @@ const PORT = process.env.APP_PORT
 //ROUTERS
 const authRouter = require('./routes/auth')
 const categoryRouter = require('./routes/category')
+const productRouter = require('./routes/product')
 
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(__dirname));
@@ -40,11 +41,10 @@ app.use(function(req, res, next) {
 });
 
 //ROUTES
-app.get('/', (req, res ) => {
-    res.render('home')
-})
+app.get('/', (req, res ) => res.render('home') )
 app.use('/auth', authRouter)
 app.use('/categories', categoryRouter)
+app.use('/products', productRouter)
 
 //test route
 app.get('/protected', ( req, res ) => {

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create new product</title>
+</head>
+<body>
+    <h3>New Product - <%= category.name %>  </h3>
+    <form action="/products/create" method="post">
+        <div class="input-group">
+            <label>Name: </label>
+            <input type="text" name="name" id="" <% if(locals.name){ %>value="<%=name%>">   <% } %>
+        </div>
+        <div class="input-group">
+            <label>Description: </label>
+            <textarea name="description" id="" ><% if(locals.description){ %><%=description%>" <% } %></textarea>
+        </div>
+        <div class="input-group">
+            <label>Long description: </label>
+            <textarea name="longDescription" id="" ><% if(locals.longDescription){ %><%=longDescription%> <% } %></textarea>
+        </div>
+        <div class="input-group">
+            <label>Price: </label>
+            <input type="text" name="price" id="" <% if(locals.price){ %>value="<%=price%>">   <% } %>
+        </div>
+        <div class="input-group">
+            <label>Selling Price: </label>
+            <input type="text" name="sellingPrice" id="" <% if(locals.sellingPrice){ %>value="<%=sellingPrice%>">   <% } %>
+        </div>
+        <% category.attributes.forEach((attribute) => {  %> 
+            <div class="input-group">
+                <label><%= attribute %> : </label>
+                <input type="text" name="<%=attribute%>" id="" <% if(locals.attribute) %><% { %>value="<%=attribute.value%>">   <% } %>
+            </div>
+        <% }) %> 
+        <input type="submit">    
+    </form>
+</body>
+</html>

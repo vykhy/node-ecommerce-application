@@ -1,0 +1,35 @@
+const router = require('express').Router()
+const productController = require('../controllers/productController')
+
+//choose category to create product
+router.get('/create', productController.getChooseCategory)
+
+//handle choose category
+router.post('/create/category', productController.chooseCategory)
+
+//create a product
+router.post('/create', productController.createProduct)
+
+//get a product
+router.get('/:id', productController.getProduct)
+
+//get all products
+router.get('/', productController.getAllProducts)
+
+//get products from a category
+router.get('/:category', productController.getCategoryProducts)
+
+
+//view to update a product
+router.get('/update/:id', productController.getUpdateProduct)
+
+//update a product
+router.post('/update/:id', productController.updateProduct)
+
+//view to delete a product
+router.get('/delete/:id', productController.getDeleteProduct)
+
+//delete a product
+router.post('/delete/:id', productController.deleteProduct)
+
+module.exports = router
