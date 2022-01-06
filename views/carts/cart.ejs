@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - <%= locals.user %> </title>
+</head>
+<body>
+    <h3>My Cart</h3>
+    <%= locals.error %> 
+    <%= locals.message %> 
+    <% if(locals.cart !== undefined){ %> <%= locals.cart.products %> <% } %> 
+    <form action="/cart/checkout" method="post">
+        <% if(locals.cart !== undefined){ locals.cart.products.forEach(product => { %>
+            <h5><%= product.productId.name %> </h5>
+            <div><%= product.productId.description %> </div>
+            <div>$<strike><%= product.productId.price %></strike> <%= product.productId.sellingPrice %>  </div>
+            <div><%= product.productId.longDescription %> </div>
+            <div>Quantity: <input type="number" name="<%=product.productId._id%>" min="0" value="<%=product.quantity%>">  </div>
+            <div>Include at checkout: <input type="checkbox" name="<%=product.productId._id%>" id="" checked="<%=product.included%>" ></div>
+        <% })} %>
+        <button type="submit">Proceed to checkout</button>
+    </form>
+    <form action="/carts/empty" method="post">
+        <button type="submit">Empty cart</button>
+    </form>
+     
+</body>
+</html>

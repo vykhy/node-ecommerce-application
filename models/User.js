@@ -19,7 +19,13 @@ const User = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: false
-    }
+    },
+    cart: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cart'
+    },
+    addresses: [],
+    payments: []
 },{
     timestamps: true
 }

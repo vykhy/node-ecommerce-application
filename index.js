@@ -16,6 +16,7 @@ const PORT = process.env.APP_PORT
 const authRouter = require('./routes/auth')
 const categoryRouter = require('./routes/category')
 const productRouter = require('./routes/product')
+const cartRouter = require('./routes/cart')
 
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(__dirname));
@@ -36,9 +37,10 @@ app.use(session({
 }))
 
 app.use(function(req, res, next) {
-    req.session.uid = 'uikdhcyeh462j'
+    req.session.uid = 'a123d4568964'
     req.session.user = 'Vykhy the billionaire'
-    res.locals.user = req.session.user;
+    req.session.cart = '61d3db26153420b6848e5e50'
+    res.locals.session = req.session;
     next();
 });
 
@@ -47,6 +49,7 @@ app.get('/', (req, res ) => res.render('home') )
 app.use('/auth', authRouter)
 app.use('/categories', categoryRouter)
 app.use('/products', productRouter)
+app.use('/cart', cartRouter)
 
 //test route
 app.get('/protected', ( req, res ) => {

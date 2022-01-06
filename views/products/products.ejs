@@ -14,6 +14,9 @@
         <a href="/products/<%=product._id%> ">View this</a>
         <a href="/products/update/<%=product._id%>">Edit</a>
         <a href="/products/delete/<%=product._id%>">Delete</a>
+
+        <form action="/carts/add/<%=product._id%>" method="post"></form>
+
         <div><%=product._id%></div>
     <% }) %>   
 </body>

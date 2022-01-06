@@ -21,5 +21,13 @@
             <p><%= detail[0] %>: <%= detail[1] %>    </p>
         </div>
     <% }) %> 
+
+    <form action="/cart/add/<%=product._id%> " method="post">
+        <div class="input-group">
+            <label>Quantity: </label>
+            <input type="number" name="quantity" id="" value="1" >
+        </div>
+        <button type="submit">Add to cart</button>
+    </form>
 </body>
 </html>
