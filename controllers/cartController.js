@@ -1,9 +1,7 @@
 const Cart = require('../models/Cart')
-const User = require('../models/User')
 const checkOutService = require('../services/checkout')
-const mongoose = require('mongoose')
 const cartService = require('../services/cart')
-
+const Order = require('../models/Order')
 
 exports.getUserCart = async ( req, res ) => {
 
@@ -76,11 +74,35 @@ exports.checkout = async( req, res ) => {
 
     const { total, sellingTotal, saved } = checkOutService.calculateTotals(finalProducts)
     
-    return res.render('carts/summary', {
-        products: Object.values(finalProducts),
-        total,
-        sellingTotal,
-        saved
+    let order
+
+    try{
+        const exists = await Order.findOne({
+            customer: req.session.uid,
+            products: finalProducts,
+            status: 'initiated',
+        })
+        if(!exists){
+            order = await Order.create({
+                customer: req.session.uid,
+                products: finalProducts,
+                total: total,
+                status: 'initiated',
+            })
+        } else{ order = exists }
+    }catch(error){
+        res.send(error.message)
+    }
+
+    
+    if(!order){
+        return res.send('Failed to initiate order')
+    }
+    return res.render('checkout/summary', {
+        products: Object.values(finalProducts), 
+        total, sellingTotal, saved, 
+        status: order.status, 
+        order: order._id
     } )
 }
 

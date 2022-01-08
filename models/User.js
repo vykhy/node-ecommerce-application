@@ -24,7 +24,9 @@ const User = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cart'
     },
-    addresses: [],
+    addresses: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Address' }
+    ],
     payments: []
 },{
     timestamps: true

@@ -17,6 +17,7 @@ const authRouter = require('./routes/auth')
 const categoryRouter = require('./routes/category')
 const productRouter = require('./routes/product')
 const cartRouter = require('./routes/cart')
+const orderRouter = require('./routes/order')
 
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(__dirname));
@@ -50,6 +51,7 @@ app.use('/auth', authRouter)
 app.use('/categories', categoryRouter)
 app.use('/products', productRouter)
 app.use('/cart', cartRouter)
+app.use('/order', orderRouter)
 
 //test route
 app.get('/protected', ( req, res ) => {
@@ -58,3 +60,26 @@ app.get('/protected', ( req, res ) => {
 })
 
 app.listen(PORT)
+
+/**
+ * NEXT TIME
+ * 
+ * CREATE ORDER AND GET ITS ID
+ * ADD ADDRESSE TO ORDER
+ * DELETE ORDER
+ * VIEW ORDERS PAGE
+ * BILLING
+ * IMPLEMENT PRODUCT IMAGES
+ * UPDATE LOGIN AND AUTH SYSTEM
+ * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION
+ * HOME PAGE DESIGN
+ * NAVBAR AND FOOTER
+ * IMPLEMENT REDIS
+ *  - products
+ *  - recommendations
+ *  - updates
+ *  - cart
+ * SHIPPING API
+ * 
+ * ADMIN, PROBABLY
+ */

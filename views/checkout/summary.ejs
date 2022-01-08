@@ -10,6 +10,7 @@
     <h3>Order summary</h3>
     <%= locals.error %> 
     <div><%= locals.message %> </div>
+    <div><%= locals.status %> </div>
 
     <% locals.products.forEach(product => {  %> 
         <div>
@@ -25,5 +26,8 @@
     <% }) %> 
     <b>Order total: </b><strike><%= locals.total %></strike> <%= locals.sellingTotal %> <br>
     <b>Saved: </b><%= locals.saved %> 
+    <form action="/order/address/<%= locals.order %>" method="GET">
+        <button type="submit">Proceed</button>
+    </form>
 </body>
 </html>

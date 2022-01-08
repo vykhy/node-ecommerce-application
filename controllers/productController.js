@@ -1,11 +1,9 @@
 const Product = require('../models/Product')
 const Category = require('../models/Category')
+const anyIsEmpty = require('../services/functions').anyIsEmpty
 
 function extractProductDetails(product){
     return Object.entries(product.details)
-}
-function anyIsEmpty(arguments){
-    return arguments.some(argument => argument == '' || argument == undefined)
 }
 
 exports.getProduct = async ( req, res ) => {
