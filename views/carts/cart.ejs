@@ -19,6 +19,7 @@
             <div><%= product.productId.longDescription %> </div>
             <div>Quantity: <input type="number" name="<%=product.productId._id%>" min="0" value="<%=product.quantity%>">  </div>
             <div>Include at checkout: <input type="checkbox" name="<%=product.productId._id%>" id="" checked="<%=product.included%>" ></div>
+            <a href="/cart/remove/<%= product.productId._id %>">Remove</a>
         <% })} %>
         <button type="submit">Proceed to checkout</button>
     </form>

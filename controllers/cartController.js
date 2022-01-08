@@ -106,6 +106,22 @@ exports.checkout = async( req, res ) => {
     } )
 }
 
+exports.removeItem = async ( req, res ) => {
+    const cartId = req.session.cart
+    const productId = req.params.productId
+    try{
+        const cart = await Cart.findOneAndUpdate({
+            _id: cartId
+        }, {
+            $pull: { products : { productId: { _id: productId }}}
+        })
+        res.send('Item removed from cart')
+    }
+    catch(error){
+        res.send(error.message)
+    }
+}
+
 exports.emptyCart = async( req, res ) => {
     try{
         const success = await Cart.findOneAndUpdate(

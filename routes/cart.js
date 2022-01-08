@@ -26,4 +26,6 @@ router.get('/mycart', async (req, res) => {
 //empty cart
 router.post('/empty', cartController.emptyCart)
 
+//remove item from cart
+router.get('/remove/:productId', cartController.removeItem)
 module.exports = router
