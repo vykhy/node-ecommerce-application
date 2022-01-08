@@ -36,6 +36,8 @@ const Order = new mongoose.Schema({
             type: String, 
         }
     },
+    deleted: {type: Boolean, default: false} 
+    ,
     trackingId : { type: String }
 },{
     timestamps: true

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My orders</title>
+</head>
+<body>
+    <h4>My orders</h4>
+    <% if(locals.error){ %>Error: <%=error%>  <% } %>
+    <% if(locals.message){ %> <%=message%>  <% } %>
+    <% locals.orders.forEach(order => {  %> 
+        <a href="/order/<%= order._id %> ">
+            <div>Order id: <%= order._id %> </div>        
+            <div>Order amount: <%= order.total %> </div>
+            <div>Order status: <%= order.status %> </div>
+            <div>Order quantity: <%= order.products.length %> </div>
+        </a>
+        <a href="/order/delete/<%= order._id %> ">Remove</a>        
+        <br><hr><br>
+    <% }) %> 
+     
+</body>
+</html>
