@@ -48,7 +48,7 @@ exports.getProduct = async (req, res) => {
  */
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({ available: true });
 
     if (!products) {
       res.send("No product was found");
@@ -70,7 +70,7 @@ exports.getCategoryProducts = async (req, res) => {
   const catId = req.params.catId;
 
   try {
-    const products = await Product.find({ category: catId });
+    const products = await Product.find({ category: catId, available: true });
     if (products.length < 1) {
       res.send("No product was found");
       return;
@@ -300,8 +300,11 @@ exports.deleteProduct = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const success = await Product.deleteOne({ _id: id });
-    if (success.deletedCount > 0) {
+    const success = await Product.findOneAndUpdate(
+      { _id: id },
+      { available: false }
+    );
+    if (success.available == false) {
       res.send("Deleted successfully");
       return;
     }

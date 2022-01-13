@@ -17,8 +17,11 @@
                 <h5><%= product.productId.name %> </h5>
                 <div><%= product.productId.description %> </div>
                 <div>$<strike><%= product.productId.price %></strike> <%= product.productId.sellingPrice %>  </div>
+                <% if(product.productId.available){  %> 
                 <div>Quantity: <input type="number" name="<%=product.productId._id%>" min="0" value="<%=product.quantity%>">  </div>
                 <div>Include at checkout: <input type="checkbox" name="<%=product.productId._id%>" id="" checked="<%=product.included%>" ></div>
+                <% } else { %> <h3>This product has been deleted</h3>
+                <% } %> 
                 <a href="/cart/remove/<%= product.productId._id %>">Remove</a>
             <% }else {  %> 
                 <h3>This product has been deleted</h3>

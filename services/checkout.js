@@ -29,8 +29,10 @@ exports.filterProductsAndCalculatePrice = async (req, data) => {
 
   //   console.log(cartProducts);
   //check if included at checkout
-  dbProducts = dbProducts.filter((product) =>
-    cartProductIds.includes(product._id.toString())
+  dbProducts = dbProducts.filter(
+    (product) =>
+      cartProductIds.includes(product._id.toString()) &&
+      product.available === true
   );
   dbProducts.forEach((dbProduct, index) => {
     dbProduct._doc.quantity = cartProducts[index][1][0]; //set quantity
