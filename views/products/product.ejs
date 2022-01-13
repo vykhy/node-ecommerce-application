@@ -8,6 +8,11 @@
 </head>
 <body>
     <h1><%=product.name %> </h1>
+    <div>
+        <% locals.imageLinks.forEach((image, index )=> { %>
+            <img src="<%= image %> " alt="<%= product.name+'-'+index %> ">
+        <% })  %> 
+    </div>
     <p><%= product.description %> </p>
     <div>Product Description: <br> <%= product.longDescription %></div><br>
 

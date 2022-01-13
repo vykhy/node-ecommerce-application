@@ -13,13 +13,17 @@
     <% if(locals.cart !== undefined){ %> <%= locals.cart.products %> <% } %> 
     <form action="/cart/checkout" method="post">
         <% if(locals.cart !== undefined){ locals.cart.products.forEach(product => { %>
-            <h5><%= product.productId.name %> </h5>
-            <div><%= product.productId.description %> </div>
-            <div>$<strike><%= product.productId.price %></strike> <%= product.productId.sellingPrice %>  </div>
-            <div><%= product.productId.longDescription %> </div>
-            <div>Quantity: <input type="number" name="<%=product.productId._id%>" min="0" value="<%=product.quantity%>">  </div>
-            <div>Include at checkout: <input type="checkbox" name="<%=product.productId._id%>" id="" checked="<%=product.included%>" ></div>
-            <a href="/cart/remove/<%= product.productId._id %>">Remove</a>
+            <% if(product.productId !== null){ %> 
+                <h5><%= product.productId.name %> </h5>
+                <div><%= product.productId.description %> </div>
+                <div>$<strike><%= product.productId.price %></strike> <%= product.productId.sellingPrice %>  </div>
+                <div>Quantity: <input type="number" name="<%=product.productId._id%>" min="0" value="<%=product.quantity%>">  </div>
+                <div>Include at checkout: <input type="checkbox" name="<%=product.productId._id%>" id="" checked="<%=product.included%>" ></div>
+                <a href="/cart/remove/<%= product.productId._id %>">Remove</a>
+            <% }else {  %> 
+                <h3>This product has been deleted</h3>
+            <% } %> 
+            
         <% })} %>
         <button type="submit">Proceed to checkout</button>
     </form>

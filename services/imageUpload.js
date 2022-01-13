@@ -1,4 +1,5 @@
 const multer = require("multer");
+const fs = require("fs");
 const path = require("path");
 
 /**
@@ -20,7 +21,7 @@ exports.multi_upload = (length) => {
 
   const multi_upload = multer({
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 1MB
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
     fileFilter: (req, file, cb) => {
       if (
         file.mimetype == "image/png" ||
@@ -38,4 +39,27 @@ exports.multi_upload = (length) => {
   }).array("images", length);
 
   return multi_upload;
+};
+
+/**
+ * deletes files
+ * @param {array of paths of files to delete} array
+ * @returns
+ */
+exports.deleteMultiple = (array) => {
+  return Promise.all(
+    array.map(
+      (filePath) =>
+        new Promise((res, rej) => {
+          try {
+            fs.unlink(filePath, (err) => {
+              if (err) throw err;
+              //console.log(`image ${filePath} has been deleted`);
+            });
+          } catch (err) {
+            throw err;
+          }
+        })
+    )
+  );
 };

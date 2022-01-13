@@ -12,6 +12,15 @@
         Product Id: <b><%= product._id %>  </b>
     </div>
     <% if(locals.error){ %>Error: <%=error%>   <% } %>
+    <div>
+        <% locals.imageLinks.forEach((image, index )=> { %>
+            <img src="<%= image %> " alt="<%= product.name %> ">
+        <% })  %>
+        <div>
+            <a href="/products/images/<%= product._id %> ">Edit product images</a>
+            <br>
+        </div> 
+    </div>
     <form action="/products/update/<%=product._id%>" method="POST">
         <div class="input-group">
             <label>Name: </label>

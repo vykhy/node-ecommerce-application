@@ -40,9 +40,12 @@ app.use(
 );
 
 app.use(function (req, res, next) {
-  req.session.uid = "a123d4568964";
-  req.session.user = "Vykhy the billionaire";
-  req.session.cart = "61d3db26153420b6848e5e50";
+  // req.session.uid = "a123d4568964";
+  // req.session.user = "Vykhy the billionaire";
+  // req.session.cart = "61d3db26153420b6848e5e50";
+  req.session.uid = mongoose.Types.ObjectId("61dd41f0b0dd7233902db058");
+  req.session.user = "Billionaire";
+  //
   res.locals.session = req.session;
   next();
 });
@@ -71,7 +74,7 @@ app.listen(PORT);
  * VIEW ORDERS PAGE     **
  * DELETE ORDER     **
  * BILLING
- * IMPLEMENT PRODUCT IMAGES
+ * IMPLEMENT PRODUCT IMAGES     **
  * UPDATE LOGIN AND AUTH SYSTEM
  * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION
  * HOME PAGE DESIGN

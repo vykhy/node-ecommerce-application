@@ -12,8 +12,11 @@ router.post("/create/:catId", productController.createProduct);
 
 //add product images
 router.post("/images/:productId", productController.setProductImages);
-router.get("/images", async (req, res) => {
-  res.render("products/images");
+router.get("/images/:productId", (req, res) => {
+  res.render(`products/images`, {
+    productName: "This product",
+    productId: req.params.productId,
+  });
 });
 
 //get a product

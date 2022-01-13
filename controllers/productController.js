@@ -1,6 +1,10 @@
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 const upload = require("../services/imageUpload");
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
+const sharp = require("sharp");
 const anyIsEmpty = require("../services/functions").anyIsEmpty;
 
 function extractProductDetails(product) {
@@ -24,7 +28,13 @@ exports.getProduct = async (req, res) => {
       return;
     }
     const details = extractProductDetails(product);
-    res.render("products/product", { product, details });
+    let imageLinks;
+    if (product.images.length > 0) {
+      imageLinks = product.images.map(
+        (image) => `${process.env.BASE_URL}/${image.path}`
+      );
+    } else imageLinks = [];
+    res.render("products/product", { product, details, imageLinks });
   } catch (error) {
     res.send(error.message);
   }
@@ -136,7 +146,10 @@ exports.createProduct = async (req, res) => {
       creator: req.session.uid,
     });
     if (product) {
-      res.redirect(`/products/${product._id}`);
+      res.render(`products/images`, {
+        productName: product.name,
+        productId: product._id,
+      });
       return;
     }
     res.send("Failed to create product");
@@ -165,7 +178,14 @@ exports.getUpdateProduct = async (req, res) => {
       res.send("Product not found");
     }
     const details = extractProductDetails(product);
-    res.render("products/edit", { product, details });
+    let imageLinks;
+    if (product.images.length > 0) {
+      imageLinks = product.images.map(
+        (image) => `${process.env.BASE_URL}/${image.path}`
+      );
+    } else imageLinks = [];
+
+    res.render("products/edit", { product, details, imageLinks });
   } catch (error) {
     res.send(error.message);
   }
@@ -234,7 +254,7 @@ exports.updateProduct = async (req, res) => {
       return;
     }
 
-    const success = await product.update({
+    const success = await product.updateOne({
       name,
       description,
       longDescription,
@@ -283,6 +303,7 @@ exports.deleteProduct = async (req, res) => {
     const success = await Product.deleteOne({ _id: id });
     if (success.deletedCount > 0) {
       res.send("Deleted successfully");
+      return;
     }
     res.send("Failed to delete");
   } catch (error) {
@@ -295,19 +316,34 @@ exports.deleteProduct = async (req, res) => {
  */
 exports.setProductImages = async (req, res) => {
   const productId = req.params.productId;
-
   try {
     upload.multi_upload(5)(req, res, async (err) => {
       if (!res.req.files.length > 0) {
         return res.send("No file found");
       }
-
       if (err) {
         return res.status(500).send({ error: err.message });
       }
-      res.send(
-        `<a href=${process.env.SITE_URL}/${res.req.files[0].path}>SEE IMAGE</a>`
-      );
+
+      const product = await Product.findOne({
+        _id: productId,
+        creator: req.session.uid,
+      });
+
+      //get previous images from file system
+      const prevImages = product.images.map((image) => image.path);
+
+      //set new images and save
+      product.images = res.req.files;
+      const success = await product.save();
+
+      //delete old images
+      upload.deleteMultiple(prevImages);
+
+      return res.redirect(`/products/${productId}`);
+      // res.send(
+      //   `<a href=${process.env.SITE_URL}/${res.req.files[0].path}>SEE IMAGE</a>`
+      // );
     });
   } catch (error) {
     res.send(error.message);
