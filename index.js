@@ -20,6 +20,10 @@ const productRouter = require("./routes/product");
 const cartRouter = require("./routes/cart");
 const orderRouter = require("./routes/order");
 
+//CUSTOM MIDDLEWARE
+const isAuth = require("./middlewares/isAuth");
+const isAdmin = require("./middlewares/isAdmin");
+
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(__dirname));
 app.use(cookieParser());
@@ -46,6 +50,7 @@ app.use(function (req, res, next) {
   // req.session.cart = "61d3db26153420b6848e5e50";
   req.session.uid = mongoose.Types.ObjectId("61dd41f0b0dd7233902db058");
   req.session.user = "Billionaire";
+  req.session.admin = true;
   //
   res.locals.session = req.session;
   next();
@@ -53,7 +58,7 @@ app.use(function (req, res, next) {
 
 //ROUTES
 app.get("/", (req, res) => res.render("home"));
-app.use("/admin", adminRouter);
+app.use("/admin", isAdmin, adminRouter);
 app.use("/auth", authRouter);
 app.use("/categories", categoryRouter);
 app.use("/products", productRouter);

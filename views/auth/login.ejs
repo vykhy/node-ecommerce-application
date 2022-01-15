@@ -11,6 +11,7 @@
 
     <form action="/auth/login" method="POST">
         <% if(locals.error){ %> <%= error %> <% } %> 
+        <% if(locals.message){ %> <%= message %> <% } %>
         <div class="input-group">
             <label>Email: </label>
             <input type="text" name="email" id="" <% if(locals.email){ %>value="<%=email%>">   <% } %>
