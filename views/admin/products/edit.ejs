@@ -17,11 +17,11 @@
             <img src="<%= image %> " alt="<%= product.name %> ">
         <% })  %>
         <div>
-            <a href="/products/images/<%= product._id %> ">Edit product images</a>
+            <a href="/admin/products/images/<%= product._id %> ">Edit product images</a>
             <br>
         </div> 
     </div>
-    <form action="/products/update/<%=product._id%>" method="POST">
+    <form action="/admin/products/update/<%=product._id%>" method="POST">
         <div class="input-group">
             <label>Name: </label>
             <input type="text" name="name" id="" value="<%=product.name%>">

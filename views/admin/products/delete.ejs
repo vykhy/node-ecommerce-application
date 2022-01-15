@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category - <%=category.name %>  </title>
+    <title><%=product.name %>  </title>
 </head>
 <body>
-    <h1>Category - <%=category.name %> </h1>
-    <p><%= category.description %> </p>
-    <% category.attributes.forEach((attribute) => { %> 
-       <div><%= attribute %></div>  
-    <% }) %>  
-    <form action='/categories/delete/<%=category._id%> ' method="post">
+    <h1><%=product.name %> </h1>
+    <p><%= product.description %> </p>
+    <% details.forEach(detail => { %> 
+        <div>
+            <p><%= detail[0] %>: <%= detail[1] %>    </p>
+        </div>
+    <% }) %> 
+    <form action='/admin/products/delete/<%=product._id%> ' method="post">
         <button type="submit">Delete</button>
         <a id="back" href="">Go back</a>
     </form>

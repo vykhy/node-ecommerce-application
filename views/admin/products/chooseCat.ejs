@@ -8,7 +8,7 @@
 </head>
 <body>
     <h3>Choose a category for your product</h3>
-    <form action="/products/create/category" method="post">
+    <form action="/admin/products/create/category" method="post">
         <select name="category" id="">
             <% categories.forEach((category) => { %>
                 <option value="<%=category.name%>"><%=category.name%></option>

@@ -13,6 +13,7 @@ env.config();
 const PORT = process.env.APP_PORT;
 
 //ROUTERS
+const adminRouter = require("./admin/index");
 const authRouter = require("./routes/auth");
 const categoryRouter = require("./routes/category");
 const productRouter = require("./routes/product");
@@ -52,6 +53,7 @@ app.use(function (req, res, next) {
 
 //ROUTES
 app.get("/", (req, res) => res.render("home"));
+app.use("/admin", adminRouter);
 app.use("/auth", authRouter);
 app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
@@ -75,7 +77,8 @@ app.listen(PORT);
  * DELETE ORDER     **
  * BILLING
  * IMPLEMENT PRODUCT IMAGES     **
- * UPDATE LOGIN AND AUTH SYSTEM
+ * UPDATE LOGIN AND AUTH SYSTEM   **
+ * SEPARATE USER AND ADMIN CODE
  * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION
  * HOME PAGE DESIGN
  * NAVBAR AND FOOTER

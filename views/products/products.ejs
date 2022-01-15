@@ -8,16 +8,14 @@
 </head>
 <body>
     <% products.forEach((product) => { %> 
-        <h1>product - <%=product.name || product._id%> </h1>
-        <p><%= product.description %> </p>
-        
-        <a href="/products/<%=product._id%> ">View this</a>
-        <a href="/products/update/<%=product._id%>">Edit</a>
-        <a href="/products/delete/<%=product._id%>">Delete</a>
+        <a href="/products/<%= product._id %> ">
+            <h1>product - <%=product.name || product._id%> </h1>
+            <p><%= product.description %> </p>
 
-        <form action="/carts/add/<%=product._id%>" method="post"></form>
-
-        <div><%=product._id%></div>
+            <form action="/cart/add/<%=product._id%>" method="post">
+                <button type="submit">Add to cart</button>
+            </form>
+        </a>    
     <% }) %>   
 </body>
 </html>
