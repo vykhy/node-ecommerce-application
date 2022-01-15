@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create new product</title>
+
+    <script src="/cakeditor/ckeditor.js" defer></script>
 </head>
 <body>
     <h3>New Product - <%= category.name %>  </h3>
@@ -20,7 +22,7 @@
         </div>
         <div class="input-group">
             <label>Long description: </label>
-            <textarea name="longDescription" id="" ><% if(locals.longDescription){ %><%=longDescription%> <% } %></textarea>
+            <textarea name="longDescription" id="longDescription" ><% if(locals.longDescription){ %><%=longDescription%> <% } %></textarea>
         </div>
         <div class="input-group">
             <label>Price: </label>
@@ -38,5 +40,11 @@
         <% }) %> 
         <input type="submit">    
     </form>
+
+    <script>
+        window.onload = () => {
+            CKEDITOR.replace('longDescription')
+        }
+    </script>
 </body>
 </html>

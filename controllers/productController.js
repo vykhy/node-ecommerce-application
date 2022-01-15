@@ -22,11 +22,12 @@ exports.getProduct = async (req, res) => {
     }
     const details = extractProductDetails(product);
     let imageLinks;
-    if (product.images.length > 0) {
-      imageLinks = product.images.map(
-        (image) => `${process.env.BASE_URL}/${image.path}`
+    if (product.images) {
+      imageLinks = product.images.map((image) =>
+        image.path.replace("public", "")
       );
     } else imageLinks = [];
+    //return res.send(`<pre>${imageLinks}</pre>`);
     res.render("products/product", { product, details, imageLinks });
   } catch (error) {
     res.send(error.message);

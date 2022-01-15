@@ -1,15 +1,14 @@
-const router = require('express').Router()
-const orderController = require('../controllers/orderController')
+const router = require("express").Router();
+const orderController = require("../controllers/orderController");
 
-router.get('/', orderController.getOrders)
+router.get("/", orderController.getOrders);
 
-router.get('/delete/:orderId', orderController.getDeleteOrder)
+router.get("/delete/:orderId", orderController.getDeleteOrder);
 
-router.post('/delete/:orderId', orderController.deleteOrder)
+router.post("/delete/:orderId", orderController.deleteOrder);
 
-router.get('/address/:orderId', orderController.getAddAddress)
+router.get("/address/:orderId", orderController.getAddAddress);
 
-router.post('/address/:orderId', orderController.addAddress)
+router.post("/address/:orderId", orderController.addAddress);
 
-
-module.exports = router
+module.exports = router;

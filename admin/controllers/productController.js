@@ -24,9 +24,9 @@ exports.getProduct = async (req, res) => {
     }
     const details = extractProductDetails(product);
     let imageLinks;
-    if (product.images.length > 0) {
-      imageLinks = product.images.map(
-        (image) => `${process.env.BASE_URL}/${image.path}`
+    if (product.images) {
+      imageLinks = product.images.map((image) =>
+        image.path.replace("public", "")
       );
     } else imageLinks = [];
     res.render("admin/products/product", { product, details, imageLinks });
@@ -43,7 +43,7 @@ exports.getProduct = async (req, res) => {
  */
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({ available: true });
+    const products = await Product.find();
 
     if (!products) {
       res.send("No product was found");
@@ -173,9 +173,9 @@ exports.getUpdateProduct = async (req, res) => {
     }
     const details = extractProductDetails(product);
     let imageLinks;
-    if (product.images.length > 0) {
-      imageLinks = product.images.map(
-        (image) => `${process.env.BASE_URL}/${image.path}`
+    if (product.images) {
+      imageLinks = product.images.map((image) =>
+        image.path.replace("public", "")
       );
     } else imageLinks = [];
 
@@ -204,28 +204,20 @@ exports.updateProduct = async (req, res) => {
   } = req.body;
 
   try {
+    let error = null;
     const product = await Product.findOne({ _id: id });
 
     //if product doesnt exist. Happens only when page is tampered with.
     if (!product) {
-      const product = {
-        _id: id,
-        name,
-        description,
-        longDescription,
-        price,
-        sellingPrice,
-      };
-      res.render("admin/products/edit", {
-        product,
-        error: "Failed to update.Dont mess with the URL. It helps no one.",
-        details: Object.entries(details),
-      });
-      return;
+      error = "Failed to update.Dont mess with the URL. It helps no one.";
     }
 
     //check if some fields are empty. Arguments take all the variables whose value should be checked for being empty.
     if (anyIsEmpty([name, description, longDescription, price, sellingPrice])) {
+      error = "Please fill the required fields";
+    }
+
+    if (error) {
       const product = {
         _id: id,
         name,
@@ -236,12 +228,11 @@ exports.updateProduct = async (req, res) => {
       };
       res.render("products/edit", {
         product,
-        error: "Please fill the required fields",
+        error: error,
         details: Object.entries(details),
       });
       return;
     }
-
     //only products you added can be modified
     if (product.creator != req.session.uid) {
       res.send("Unauthorized. You can only edit products created by you");
@@ -300,6 +291,10 @@ exports.deleteProduct = async (req, res) => {
     );
     console.log(success);
     if (success.available == false) {
+      // delete product images
+      // disabled because product is only marked unavailable and ay be restored later
+      // images = success.images ? success.images.map(image => image.path) : []
+      // await upload.deleteMultiple(images);
       res.send("Deleted successfully");
       return;
     }
@@ -328,8 +323,11 @@ exports.setProductImages = async (req, res) => {
         creator: req.session.uid,
       });
 
+      if (!product) return res.send("Unable to perform action.");
       //get previous images from file system
-      const prevImages = product.images.map((image) => image.path);
+      const prevImages = product.images
+        ? product.images.map((image) => image.path)
+        : [];
 
       //set new images and save
       product.images = res.req.files;

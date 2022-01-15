@@ -10,6 +10,7 @@
     <% products.forEach((product) => { %> 
         <h1>product - <%=product.name || product._id%> </h1>
         <p><%= product.description %> </p>
+        <div>Deleted: <%= !product.available %> </div>
         
         <a href="/products/<%=product._id%> ">View this as user</a> <br>
         <a href="/admin/products/<%=product._id%> ">View this as admin</a><br>

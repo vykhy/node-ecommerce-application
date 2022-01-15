@@ -25,7 +25,7 @@ const isAuth = require("./middlewares/isAuth");
 const isAdmin = require("./middlewares/isAdmin");
 
 //APP SETUP AND MIDDLEWARES
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -83,10 +83,11 @@ app.listen(PORT);
  * BILLING
  * IMPLEMENT PRODUCT IMAGES     **
  * UPDATE LOGIN AND AUTH SYSTEM   **
- * SEPARATE USER AND ADMIN CODE
- * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION
+ * SEPARATE USER AND ADMIN CODE   **
+ * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION   **
  * HOME PAGE DESIGN
  * NAVBAR AND FOOTER
+ * IMPLEMENT REVIEWS
  * IMPLEMENT REDIS
  *  - products
  *  - recommendations
@@ -95,5 +96,5 @@ app.listen(PORT);
  * RECOMMENDATION
  * SHIPPING API
  *
- * ADMIN, PROBABLY
+ * ADMIN, PROBABLY  **
  */
