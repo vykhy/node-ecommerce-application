@@ -10,7 +10,7 @@ const path = require("path");
 exports.multi_upload = (length) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "public/images/");
+      cb(null, "public/uploaded-images/");
     },
     filename: (req, file, cb) => {
       const name =

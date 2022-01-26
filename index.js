@@ -23,6 +23,7 @@ const orderRouter = require("./routes/order");
 //CUSTOM MIDDLEWARE
 const isAuth = require("./middlewares/isAuth");
 const isAdmin = require("./middlewares/isAdmin");
+const Product = require("./models/Product");
 
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(path.join(__dirname, "/public")));
@@ -55,6 +56,30 @@ app.use(function (req, res, next) {
   res.locals.session = req.session;
   next();
 });
+
+//dev routes
+// app.get("/updateimages", async (req, res) => {
+//   const Product = require("./models/Product");
+
+//   try {
+//     const products = await Product.find();
+//     return res.send(`<pre>${products}</pre>`);
+//     const results = await Promise.all(
+//       products.map((product) => {
+//         product.images = product.images.map((image) =>
+//           image.path.replace("\\images\\", "\\uploaded-images\\")
+//         );
+//         return Product.findOneAndUpdate(
+//           { _id: product.id },
+//           { images: product.images }
+//         );
+//       })
+//     );
+//     res.send(`<pre>${results}</pre>`);
+//   } catch (e) {
+//     res.send(e.message);
+//   }
+// });
 
 //ROUTES
 app.get("/", (req, res) => res.render("home"));

@@ -24,7 +24,9 @@ exports.getProduct = async (req, res) => {
     let imageLinks;
     if (product.images) {
       imageLinks = product.images.map((image) =>
-        image.path.replace("public", "")
+        image.path
+          ? image.path.replace("public", "")
+          : image.replace("public", "")
       );
     } else imageLinks = [];
     //return res.send(`<pre>${imageLinks}</pre>`);
