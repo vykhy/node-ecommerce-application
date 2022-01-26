@@ -39,7 +39,7 @@ app.use(
   session({
     secret: process.env.SESSION_KEY,
     resave: true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
     saveUninitialized: false,
   })
 );
@@ -58,6 +58,7 @@ app.use(function (req, res, next) {
 
 //ROUTES
 app.get("/", (req, res) => res.render("home"));
+app.get("/contact", (req, res) => res.render("contact"));
 app.use("/admin", isAdmin, adminRouter);
 app.use("/auth", authRouter);
 app.use("/categories", categoryRouter);

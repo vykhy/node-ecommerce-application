@@ -85,7 +85,7 @@ exports.checkout = async (req, res) => {
       order = await Order.create({
         customer: req.session.uid,
         products: finalProducts,
-        total: total,
+        total: sellingTotal,
         status: "initiated",
       });
     } else {
