@@ -1,0 +1,13 @@
+.home-product-image-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  background-color: rgb(211, 211, 211);
+  height: 300px;
+  overflow: hidden;
+}
+.home-product-images {
+  /* max-width: 400px; */
+  width: auto;
+  height: 100%;
+}

@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const { formatImagePath } = require("../services/functions");
 
 function extractProductDetails(product) {
   return Object.entries(product.details);
@@ -21,16 +22,9 @@ exports.getProduct = async (req, res) => {
       return;
     }
     const details = extractProductDetails(product);
-    let imageLinks;
-    if (product.images) {
-      imageLinks = product.images.map((image) =>
-        image.path
-          ? image.path.replace("public", "")
-          : image.replace("public", "")
-      );
-    } else imageLinks = [];
+    formatImagePath(product);
     //return res.send(`<pre>${imageLinks}</pre>`);
-    res.render("products/product", { product, details, imageLinks });
+    res.render("products/product", { product, details });
   } catch (error) {
     res.send(error.message);
   }
@@ -45,7 +39,9 @@ exports.getProduct = async (req, res) => {
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({ available: true });
-
+    products.forEach((product) => {
+      formatImagePath(product);
+    });
     if (!products) {
       res.send("No product was found");
       return;

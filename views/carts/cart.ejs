@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - <%= locals.user %> </title>
-</head>
+<%- include('../includes/head') %> 
 <body>
+    <%- include('../includes/navbar') %> 
     <h3>My Cart</h3>
     <%= locals.error %> 
     <%= locals.message %> 
-    <% if(locals.cart !== undefined){ %> <%= locals.cart.products %> <% } %> 
     <form action="/cart/checkout" method="post">
         <% if(locals.cart !== undefined){ locals.cart.products.forEach(product => { %>
             <% if(product.productId !== null){ %> 
@@ -35,4 +28,4 @@
     </form>
      
 </body>
-</html>
+<%- include('../includes/footer') %> 

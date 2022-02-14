@@ -8,6 +8,10 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
+const Product = require("./models/Product");
+const { formatImagePath } = require("./services/functions");
+const getCategories = require("./services/getCategories");
+
 //CONSTANTS
 env.config();
 const PORT = process.env.APP_PORT;
@@ -23,7 +27,6 @@ const orderRouter = require("./routes/order");
 //CUSTOM MIDDLEWARE
 const isAuth = require("./middlewares/isAuth");
 const isAdmin = require("./middlewares/isAdmin");
-const Product = require("./models/Product");
 
 //APP SETUP AND MIDDLEWARES
 app.use(express.static(path.join(__dirname, "/public")));
@@ -45,7 +48,7 @@ app.use(
   })
 );
 
-app.use(function (req, res, next) {
+app.use(async function (req, res, next) {
   // req.session.uid = "a123d4568964";
   // req.session.user = "Vykhy the billionaire";
   // req.session.cart = "61d3db26153420b6848e5e50";
@@ -53,6 +56,7 @@ app.use(function (req, res, next) {
   req.session.user = "Billionaire";
   req.session.admin = true;
   //
+  res.locals.categories = await getCategories.getCategories();
   res.locals.session = req.session;
   next();
 });
@@ -82,7 +86,14 @@ app.use(function (req, res, next) {
 // });
 
 //ROUTES
-app.get("/", (req, res) => res.render("home"));
+app.get("/", async (req, res) => {
+  const products = await Product.find({ available: true }).limit(6);
+  products.forEach((product) => {
+    formatImagePath(product);
+  });
+  res.render("home", { products });
+});
+
 app.get("/contact", (req, res) => res.render("contact"));
 app.use("/admin", isAdmin, adminRouter);
 app.use("/auth", authRouter);
@@ -111,8 +122,10 @@ app.listen(PORT);
  * UPDATE LOGIN AND AUTH SYSTEM   **
  * SEPARATE USER AND ADMIN CODE   **
  * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION   **
- * HOME PAGE DESIGN
- * NAVBAR AND FOOTER
+ * HOME PAGE DESIGN   **
+ * NAVBAR AND FOOTER   **
+ * PRODUCTS, ORDERS, PRODUCT PAGES DESIGN
+ * ADMIN PAGES DESIGN
  * IMPLEMENT REVIEWS
  * IMPLEMENT REDIS
  *  - products

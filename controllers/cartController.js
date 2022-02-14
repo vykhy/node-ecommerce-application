@@ -15,7 +15,7 @@ exports.getUserCart = async (req, res) => {
 
 exports.addToCart = async (req, res) => {
   const productId = req.params.productId;
-  const quantity = req.body.quantity;
+  const quantity = req.body.quantity || 1;
 
   if (quantity < 0) {
     res.send("Hey smartass.  Quantity can't be negatve");

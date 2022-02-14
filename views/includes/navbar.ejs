@@ -3,7 +3,7 @@
     <header class="header_section">
        <div class="container">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-             <a class="navbar-brand" href="index.html"><img width="250" src="images/logo.png" alt="#" /></a>
+             <a class="navbar-brand" href="/"><img width="250" src="/images/logo.png" alt="#" /></a>
              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
              <span class=""> </span>
              </button>
@@ -12,6 +12,15 @@
                    <li class="nav-item active">
                       <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                    </li>
+                   <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="/categories" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Categories <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                        <% locals.categories.forEach((category) => { %>
+                           <li><a href="/products/category/<%= category._id %> "><%= category.name %></a></li>
+                        <% }) %>
+                                                
+                     </ul>
+                  </li>
                    <li class="nav-item">
                       <a class="nav-link" href="/products">Products</a>
                    </li>

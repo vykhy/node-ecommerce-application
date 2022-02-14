@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=product.name %>  </title>
-</head>
+<%- include('../includes/head') %> 
 <body>
+    <%- include('../includes/navbar') %> 
     <h1><%=product.name %> </h1>
     <div>
-        <% locals.imageLinks.forEach((image, index )=> { %>
+        <% locals.product.images.forEach((image, index )=> { %>
             <img src="<%= image %>" alt="<%= product.name+'-'+index %> ">
         <% })  %> 
     </div>
@@ -35,4 +29,4 @@
         <button type="submit">Add to cart</button>
     </form>
 </body>
-</html>
+<%- include('../includes/footer') %> 
