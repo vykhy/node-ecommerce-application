@@ -1,8 +1,9 @@
-<%- include('./includes/head') %> 
+<%- include('../includes/head') %> 
 <body>
-    <%- include('./includes/navbar') %> 
+    <%- include('../includes/navbar') %> 
     
-    <div>Order id : <%= order._id %> </div>
+    <div class="container">
+        <div>Order id : <%= order._id %> </div>
     <div>Customer name: <%= order.customer.name %> </div>
     <% order.products.forEach(product => {  %>
         <div>
@@ -18,7 +19,9 @@ Total price:<%= product.sPrice %>
     <% }) %> 
     <div>Order total : <%= order.total %> </div>
     <div>Order status : <%= order.status %> </div>
+    </div>
+    
 
-    <%- include('./includes/footer') %>
+    <%- include('../includes/footer') %>
 </body>
 </html>

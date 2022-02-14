@@ -1,7 +1,7 @@
-<%- include('./includes/head') %> 
+<%- include('../includes/head') %> 
 <body>
-    <%- include('./includes/navbar') %> 
-
+    <%- include('../includes/navbar') %> 
+<div class="container">
     <h4>My orders</h4>
     <% if(locals.error){ %>Error: <%=error%>  <% } %>
     <% if(locals.message){ %> <%=message%>  <% } %>
@@ -15,7 +15,9 @@
         <a href="/order/delete/<%= order._id %> ">Remove</a>        
         <br><hr><br>
     <% }) %> 
+</div>
+    
      
-  <%- include('./includes/footer') %>
+  <%- include('../includes/footer') %>
 </body>
 </html>

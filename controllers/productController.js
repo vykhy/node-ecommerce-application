@@ -67,6 +67,9 @@ exports.getCategoryProducts = async (req, res) => {
       res.send("No product was found");
       return;
     }
+    products.forEach((product) => {
+      formatImagePath(product);
+    });
     res.render("products/products", { products });
   } catch (error) {
     res.send(error.message);

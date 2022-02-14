@@ -11,3 +11,34 @@
   width: auto;
   height: 100%;
 }
+.product-container {
+  margin-bottom: 15px;
+}
+a > .product-container {
+  color: black;
+}
+.product-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.product-image-container {
+  height: 500px;
+  background-color: rgb(211, 211, 211);
+  display: flex;
+  justify-content: center;
+}
+.product-image-container > img {
+  height: auto;
+  width: auto;
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.half {
+  width: 50%;
+  min-width: 360px;
+}

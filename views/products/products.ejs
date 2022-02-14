@@ -1,16 +1,29 @@
 <%- include('../includes/head') %> 
 <body>
-    <%- include('../includes/navbar') %> 
+    <div class="container">
+        <%- include('../includes/navbar') %> 
     <% products.forEach((product) => { %> 
-        <a href="/products/<%= product._id %> ">
-            <h1>product - <%=product.name || product._id%> </h1>
-            <p><%= product.description %> </p>
-
-            <form action="/cart/add/<%=product._id%>" method="post">
-                <button type="submit">Add to cart</button>
-            </form>
+        <a href="/products/<%= product._id %>">
+        <div class="product-item product-container">
+            <div class="flex">
+                <div class="home-product-image-container half">
+                    <img class="home-product-images" src="<%= product.images[0] %> " alt="<%= product.name %>-image ">
+                </div>                     
+                <div class="down-content half product-info">
+                    <h4><%= product.name %></h4>
+                    <h6>$<%= product.price %> </h6>
+                    <p><%= product.description %> </p>
+                    <span>Reviews (24)</span>                      
+                    <form action="/cart/add/<%=product._id%>" method="post">
+                        <button type="submit">Add to cart</button>
+                    </form>
+                </div>
+            </div>  
+          </div>
         </a>    
     <% }) %> 
+    </div>
+    
 <%- include('../includes/footer') %>   
 </body>
 </html>

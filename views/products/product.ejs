@@ -1,33 +1,48 @@
 <%- include('../includes/head') %> 
 <body>
-    <%- include('../includes/navbar') %> 
-    <h1><%=product.name %> </h1>
-    <div>
-        <% locals.product.images.forEach((image, index )=> { %>
-            <img src="<%= image %>" alt="<%= product.name+'-'+index %> ">
-        <% })  %> 
-    </div>
-    <p><%= product.description %> </p>
-    <div>Product Description: <br> <%- product.longDescription %></div><br>
-
-    <div>Price: <br> <%= product.price %></div><br>
-
-    <div>Selling Price: <br> <%= product.sellingPrice %></div><br>
-
-    <h4>Details:</h4>
-    <% details.forEach(detail => { %> 
+    <%- include('../includes/navbar') %>
+    <div class="container">
+        <h1><%=product.name %> </h1>
         <div>
-            <p><%= detail[0] %>: <%= detail[1] %>    </p>
+            <div class="product-image-container">
+                <img src="<%= locals.product.images[0] %> " alt="" class="product-image">
+            </div>    
+                <% locals.product.images.forEach((image, index )=> { %>
+                    <img class="product-image-thumbnails" height="60px" width="60px" src="<%= image %>" alt="<%= product.name+'-'+index %> ">
+                <% })  %>     
         </div>
-    <% }) %> 
+        <p><%= product.description %> </p>
+        <div>Product Description: <br> <%- product.longDescription %></div><br>
 
-    <form action="/cart/add/<%=product._id%> " method="post">
-        <div class="input-group">
-            <label>Quantity: </label>
-            <input type="number" name="quantity" id="" value="1" >
-        </div>
-        <button type="submit">Add to cart</button>
-    </form>
+        <div>Price: <br> <%= product.price %></div><br>
+
+        <div>Selling Price: <br> <%= product.sellingPrice %></div><br>
+
+        <h4>Details:</h4>
+        <% details.forEach(detail => { %> 
+            <div>
+                <p><%= detail[0] %>: <%= detail[1] %>    </p>
+            </div>
+        <% }) %> 
+
+        <form action="/cart/add/<%=product._id%> " method="post">
+            <div class="input-group">
+                <label>Quantity: </label>
+                <input type="number" name="quantity" id="" value="1" >
+            </div>
+            <button type="submit">Add to cart</button>
+        </form>
+    </div> 
+
+    <script>
+        let productImage = document.querySelector('.product-image')   
+        document.addEventListener('click', ((e) => {
+            if(e.target.classList.contains('product-image-thumbnails')){
+                productImage.src = e.target.src
+            }
+        }))
+    </script>
+    
 <%- include('../includes/footer') %> 
 </body>
 </html>
