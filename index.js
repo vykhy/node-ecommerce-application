@@ -61,30 +61,6 @@ app.use(async function (req, res, next) {
   next();
 });
 
-//dev routes
-// app.get("/updateimages", async (req, res) => {
-//   const Product = require("./models/Product");
-
-//   try {
-//     const products = await Product.find();
-//     return res.send(`<pre>${products}</pre>`);
-//     const results = await Promise.all(
-//       products.map((product) => {
-//         product.images = product.images.map((image) =>
-//           image.path.replace("\\images\\", "\\uploaded-images\\")
-//         );
-//         return Product.findOneAndUpdate(
-//           { _id: product.id },
-//           { images: product.images }
-//         );
-//       })
-//     );
-//     res.send(`<pre>${results}</pre>`);
-//   } catch (e) {
-//     res.send(e.message);
-//   }
-// });
-
 //ROUTES
 app.get("/", async (req, res) => {
   const products = await Product.find({ available: true }).limit(6);
@@ -117,22 +93,23 @@ app.listen(PORT);
  * ADD ADDRESSE TO ORDER    **
  * VIEW ORDERS PAGE     **
  * DELETE ORDER     **
- * BILLING
  * IMPLEMENT PRODUCT IMAGES     **
  * UPDATE LOGIN AND AUTH SYSTEM   **
  * SEPARATE USER AND ADMIN CODE   **
  * CKEDITOR FOR PRODUCTS.LONG_DESCRIPTION   **
  * HOME PAGE DESIGN   **
  * NAVBAR AND FOOTER   **
- * PRODUCTS, ORDERS, PRODUCT PAGES DESIGN
+ * PRODUCTS, PRODUCT PAGES DESIGN   **
+ * ORDERS AND ORDER PAGE DESIGN
  * ADMIN PAGES DESIGN
+ * BILLING
  * IMPLEMENT REVIEWS
  * IMPLEMENT REDIS
  *  - products
  *  - recommendations
  *  - updates
  *  - cart
- * RECOMMENDATION
+ * RECOMMENDATIONS
  * SHIPPING API
  *
  * ADMIN, PROBABLY  **

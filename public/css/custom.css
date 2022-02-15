@@ -1,3 +1,6 @@
+body {
+  min-height: 100;
+}
 .home-product-image-container {
   display: flex;
   width: 100%;

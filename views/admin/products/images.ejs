@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product images - <%= locals.productName %> </title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <h4>Add images for your product</h4>
-    <form action="/admin/products/images/<%= locals.productId %>" method="post" enctype="multipart/form-data">
-        <div class="input-group">
-            <input type="file" name="images" multiple id="image-input">
-            <div id="images"></div>
-            <button type="submit">Upload</button>
-        </div>
-    </form>
+    <%- include('../includes/nav') %> 
+    <div class="container">
+        <h4>Add images for your product</h4>
+        <form action="/admin/products/images/<%= locals.productId %>" method="post" enctype="multipart/form-data">
+            <div class="input-group">
+                <input type="file" name="images" multiple id="image-input">
+                <div id="images"></div>
+                <button type="submit">Upload</button>
+            </div>
+        </form>
+    </div>
+    
 
     <script>
         const input = document.querySelector('#image-input')

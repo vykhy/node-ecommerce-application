@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update category</title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    New category
-    <form action="/admin/categories/update/<%=id%> " method="POST">
-        <div class="input-group">
-            <label>Name: </label>
-            <input type="text" name="name" id="" <% if(locals.name){ %>value="<%=name%>">   <% } %>
-        </div>
-        <div class="input-group">
-            <label>Description: </label>
-            <textarea name="description" id="" ><% if(locals.description){ %><%=description%><% } %></textarea>
-        </div>
-        <div class="input-group">
-            <label>Attributes separated by new line: </label>
-            <textarea name="attributes" id="" ><% if(locals.attributes){ %><%=attributes%> <% } %></textarea>
-        </div>
-        <input type="submit">      
-    </form>
+    <%- include('../includes/nav') %> 
+    <div class="container">
+        New category
+        <form action="/admin/categories/update/<%=id%> " method="POST">
+            <div class="input-group">
+                <label>Name: </label>
+                <input type="text" name="name" id="" <% if(locals.name){ %>value="<%=name%>">   <% } %>
+            </div>
+            <div class="input-group">
+                <label>Description: </label>
+                <textarea name="description" id="" ><% if(locals.description){ %><%=description%><% } %></textarea>
+            </div>
+            <div class="input-group">
+                <label>Attributes separated by new line: </label>
+                <textarea name="attributes" id="" ><% if(locals.attributes){ %><%=attributes%> <% } %></textarea>
+            </div>
+            <input type="submit">      
+        </form>
+    </div>       
+    <%- include('../includes/footer') %> 
 </body>
 </html>

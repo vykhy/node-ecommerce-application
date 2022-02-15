@@ -1,62 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit - <%= product.name %>  </title>
-
-    <script src="/cakeditor/ckeditor.js" defer></script>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <h3>Edit product</h3>
-    <div>
-        Product Id: <b><%= product._id %>  </b>
-    </div>
-    <% if(locals.error){ %>Error: <%=error%>   <% } %>
-    <div>
-        <% locals.imageLinks.forEach((image, index )=> { %>
-            <img src="<%= image %> " alt="<%= product.name %> ">
-        <% })  %>
+    <%- include('../includes/nav') %> 
+    <div class="container">
+        <h3>Edit product</h3>
         <div>
-            <a href="/admin/products/images/<%= product._id %> ">Edit product images</a>
-            <br>
-        </div> 
-    </div>
-    <form action="/admin/products/update/<%=product._id%>" method="POST">
-        <div class="input-group">
-            <label>Name: </label>
-            <input type="text" name="name" id="" value="<%=product.name%>">
+            Product Id: <b><%= product._id %>  </b>
         </div>
-        <div class="input-group">
-            <label>Description: </label>
-            <textarea name="description" id="" ><%=product.description%></textarea>
+        <% if(locals.error){ %>Error: <%=error%>   <% } %>
+        <div>
+            <div class="product-image-container">
+                <img src="<%= locals.product.images[0] %> " alt="" class="product-image">
+            </div>    
+                <% locals.product.images.forEach((image, index )=> { %>
+                    <img class="product-image-thumbnails" height="60px" width="60px" src="<%= image %>" alt="<%= product.name+'-'+index %> ">
+                <% })  %>     
+                <a href="/admin/products/images/<%= product._id %> ">Edit product images</a>
+                <br>
+            </div> 
         </div>
-        <div class="input-group">
-            <label>Long description: </label>
-            <textarea name="longDescription" id="longDescription"><%=product.longDescription%></textarea>
-        </div>
-        <div class="input-group">
-            <label>Price: </label>
-            <input type="number" name="price" id="" value="<%=product.price%>">
-        </div>
-        <div class="input-group">
-            <label>Selling Price: </label>
-            <input type="number" name="sellingPrice" id="" value="<%=product.sellingPrice%>">  
-        </div>
-        <% details.forEach((detail) => {  %> 
+        <form action="/admin/products/update/<%=product._id%>" method="POST">
             <div class="input-group">
-                <label><%= detail[0] %> : </label>
-                <input type="text" name="<%=detail[0]%>" id="" value="<%=detail[1]%>"> 
+                <label>Name: </label>
+                <input type="text" name="name" id="" value="<%=product.name%>">
             </div>
-        <% }) %> 
-        <input type="submit">  
-    </form>
+            <div class="input-group">
+                <label>Description: </label>
+                <textarea name="description" id="" ><%=product.description%></textarea>
+            </div>
+            <div class="input-group">
+                <label>Long description: </label>
+                <textarea name="longDescription" id="longDescription"><%=product.longDescription%></textarea>
+            </div>
+            <div class="input-group">
+                <label>Price: </label>
+                <input type="number" name="price" id="" value="<%=product.price%>">
+            </div>
+            <div class="input-group">
+                <label>Selling Price: </label>
+                <input type="number" name="sellingPrice" id="" value="<%=product.sellingPrice%>">  
+            </div>
+            <% details.forEach((detail) => {  %> 
+                <div class="input-group">
+                    <label><%= detail[0] %> : </label>
+                    <input type="text" name="<%=detail[0]%>" id="" value="<%=detail[1]%>"> 
+                </div>
+            <% }) %> 
+            <input type="submit">  
+        </form>
+    </div>
+    
 
     <script>
         window.onload = () => {
             CKEDITOR.replace('longDescription')
-        }        
+        }     
+        let productImage = document.querySelector('.product-image')   
+        document.addEventListener('click', ((e) => {
+            if(e.target.classList.contains('product-image-thumbnails')){
+                productImage.src = e.target.src
+            }
+        }))
     </script>
+    <script src="/cakeditor/ckeditor.js" defer></script>
+    <%- include('../includes/footer') %> 
 </body>
 </html>

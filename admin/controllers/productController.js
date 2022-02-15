@@ -2,6 +2,7 @@ const Product = require("../../models/Product");
 const Category = require("../../models/Category");
 const upload = require("../../services/imageUpload");
 const anyIsEmpty = require("../../services/functions").anyIsEmpty;
+const { formatImagePath } = require("../../services/functions");
 
 function extractProductDetails(product) {
   return Object.entries(product.details);
@@ -24,11 +25,7 @@ exports.getProduct = async (req, res) => {
     }
     const details = extractProductDetails(product);
     let imageLinks;
-    if (product.images) {
-      imageLinks = product.images.map((image) =>
-        image.path.replace("public", "")
-      );
-    } else imageLinks = [];
+    formatImagePath(product);
     res.render("admin/products/product", { product, details, imageLinks });
   } catch (error) {
     res.send(error.message);
@@ -173,12 +170,7 @@ exports.getUpdateProduct = async (req, res) => {
     }
     const details = extractProductDetails(product);
     let imageLinks;
-    if (product.images) {
-      imageLinks = product.images.map((image) =>
-        image.path.replace("public", "")
-      );
-    } else imageLinks = [];
-
+    formatImagePath(product);
     res.render("admin/products/edit", { product, details, imageLinks });
   } catch (error) {
     res.send(error.message);

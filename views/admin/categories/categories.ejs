@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories</title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <% categories.forEach((category) => { %> 
-        <h1>Category - <%=category.name %> </h1>
-        <p><%= category.description %> </p>
-        <% category.attributes.forEach(function(attribute){ %> 
-        <div><%= attribute %></div>  
+    <%- include('../includes/nav') %> 
+    <div class="container">
+        <% categories.forEach((category) => { %> 
+            <h1>Category - <%=category.name %> </h1>
+            <p><%= category.description %> </p>
+            <h4>Properties: </h3>
+            <% category.attributes.forEach(function(attribute){ %> 
+            <%= attribute %> | 
         <% }) %> 
-        <br>
-        <h5><a href="/admin/products/category/<%=category._id%> ">View Products</a></h5>
-        <br>
-        <a href="/admin/categories/update/<%=category._id%> ">Update</a>
-        <a href="/admin/categories/delete/<%=category._id%> ">Delete</a>
-        <div><%=category._id%></div>
-    <% }) %>   
+            <br>
+            <div class="d-flex justify-content-end border-bottom mb-5 pb-3">
+                <a class="btn btn-primary" href="/admin/products/category/<%=category._id%> ">View Products</a>
+                <a class="btn mx-3 btn-warning" href="/admin/categories/update/<%=category._id%> ">Update</a>
+                <a class="btn btn-danger" href="/admin/categories/delete/<%=category._id%> ">Delete</a>
+            </div>
+            
+        <% }) %>   
+    </div>
+    <%- include('../includes/footer') %> 
+    
 </body>
 </html>
