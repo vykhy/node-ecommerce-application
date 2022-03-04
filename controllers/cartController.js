@@ -2,6 +2,7 @@ const Cart = require("../models/Cart");
 const checkOutService = require("../services/checkout");
 const cartService = require("../services/cart");
 const Order = require("../models/Order");
+const { formatImagePath } = require("../services/functions");
 
 exports.getUserCart = async (req, res) => {
   try {
@@ -17,7 +18,7 @@ exports.addToCart = async (req, res) => {
   const productId = req.params.productId;
   const quantity = req.body.quantity || 1;
 
-  if (quantity < 0) {
+  if (quantity < 1) {
     res.send("Hey smartass.  Quantity can't be negatve");
   }
 
@@ -60,7 +61,7 @@ exports.checkout = async (req, res) => {
     return;
   }
 
-  const finalProducts = await checkOutService.filterProductsAndCalculatePrice(
+  let finalProducts = await checkOutService.filterProductsAndCalculatePrice(
     req,
     data
   );
@@ -70,9 +71,12 @@ exports.checkout = async (req, res) => {
     return;
   }
 
+  finalProducts.forEach((product) => {
+    formatImagePath(product);
+  });
+
   const { total, sellingTotal, saved } =
     checkOutService.calculateTotals(finalProducts);
-
   let order;
 
   try {

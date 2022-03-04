@@ -17,7 +17,6 @@ exports.getOrders = async (req, res) => {
     if (orders.length < 1) {
       message = "You do not have any orders";
     }
-    console.log(orders.length);
     res.render("orders/orders", { orders: Object.values(orders), message });
   } catch (error) {
     res.send(error.message);
@@ -34,6 +33,7 @@ exports.getOrder = async (req, res) => {
     if (!order) {
       return res.send("There was an error. Order not found.");
     }
+    console.log(order);
     return res.render("orders/order", { order });
   } catch (error) {
     res.send(error.message);
@@ -139,7 +139,7 @@ exports.addAddress = async (req, res) => {
       zip,
     };
     order.status = "pending";
-    order = await order.findOneAndUpdate(
+    order = await Order.findOneAndUpdate(
       { _id: orderId, userId: req.session.uid },
       order
     );

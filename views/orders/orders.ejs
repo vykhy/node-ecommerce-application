@@ -3,17 +3,31 @@
     <%- include('../includes/navbar') %> 
 <div class="container">
     <h4>My orders</h4>
-    <% if(locals.error){ %>Error: <%=error%>  <% } %>
-    <% if(locals.message){ %> <%=message%>  <% } %>
+    <% if(locals.error){ %>
+         <div class="alert alert-danger" role="alert">
+        <%=error%>  
+      </div>
+      <% } %>
+    <% if(locals.message){ %> 
+        <div class="alert alert-primary" role="alert">
+           <%=message%>
+          </div>
+         <% } %>
+    
     <% locals.orders.forEach(order => {  %> 
-        <a href="/order/<%= order._id %> ">
-            <div>Order id: <%= order._id %> </div>        
-            <div>Order amount: <%= order.total %> </div>
-            <div>Order status: <%= order.status %> </div>
-            <div>Order quantity: <%= order.products.length %> </div>
+    
+        <a class="width-100" href="/order/<%= order._id %> ">
+        <div class="card w-100 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bold">Order id: <%= order._id %></h5>
+          <p class="text-muted"><%= order.createdAt.toString().split('TO')[0] %>  </p>
+          <p class="card-text "><span class="font-weight-bold">Order amount: </span><%= order.total %> </p>
+          <p class><span class="font-weight-bold">Order status: </span><%= order.status %></p>
+          <p class="card-text">Order quantity: <%= order.products.length %> </p>
+          <a href="/order/delete/<%= order._id %> " class="btn mt-2 btn-primary">Remove</a>
+        </div>
+      </div>
         </a>
-        <a href="/order/delete/<%= order._id %> ">Remove</a>        
-        <br><hr><br>
     <% }) %> 
 </div>
     

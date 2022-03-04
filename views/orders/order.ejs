@@ -3,25 +3,40 @@
     <%- include('../includes/navbar') %> 
     
     <div class="container">
-        <div>Order id : <%= order._id %> </div>
-    <div>Customer name: <%= order.customer.name %> </div>
-    <% order.products.forEach(product => {  %>
-        <div>
-            Product name: <%= product.name %>
-        </div>
-        <div>
-Quantity: <%= product.quantity %>
-        </div>
-        <div>
-Price per unit:<%= product.sellingPrice %>  <br>
-Total price:<%= product.sPrice %> 
-        </div>
-    <% }) %> 
-    <div>Order total : <%= order.total %> </div>
-    <div>Order status : <%= order.status %> </div>
+       
+        <div class=''>
+            <div class="">
+              <h5 class="font-weight-bold">Order id: <%= order._id %></h5>
+              <p class="text-muted">Order created: <%= order.createdAt.toString().split('TO')[0] %>  </p>
+    <div class="font-weight-bold" >Customer : <%= order.customer.name %> </div>
+              <div class="text "><span class="font-weight-bold">Order amount: <%= order.total %></sdivan> </div>
+              <div class><span class="font-weight-bold">Order status: <%= order.status %></span></div>
+              <div class="text font-weight-bold">Order quantity: <%= order.products.length %> </div>
+                    <div class="d-flex mt-3 mb-3">
+                        <% order.products.forEach(product => {  %>
+                            <div class="card mr-3 mb-3 text-end" style="width: 18rem;">
+                                <img src="<%= product.images.length > 0 ? product.images[0] : '/images/default.jpg' %> " class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="font-weight-bold">
+                        Product name: <%= product.name %>
+                    </div>
+                                <div class="card-text">Product Quantity: <%= product.quantity %></div>
+                                <div>
+                        Price per unit:<%= product.sellingPrice %> 
+                                            </div><div>
+                        Total price:<%= product.sPrice %>  
+                        </div>
+                                </div>
+
+
+                            </div>
+                    <% }) %> 
+                </div>
+              <a href="/order/delete/<%= order._id %> " class="btn mt-2 btn-primary">Remove</a>
+            </div>
+          </div>
     </div>
     
-
     <%- include('../includes/footer') %>
 </body>
 </html>

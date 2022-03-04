@@ -1,6 +1,10 @@
 body {
   min-height: 100;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
 .home-product-image-container {
   display: flex;
   width: 100%;
