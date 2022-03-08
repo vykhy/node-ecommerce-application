@@ -4,7 +4,7 @@
 
     <div class="container">
         <h3>New Product - <%= category.name %>  </h3>
-        <% if(locals.error){ %>Error: <%=error%>  <% } %>
+        <% if(locals.error){ %><div class="alert alert-danger">Error: <%=error%></div>   <% } %>
         <form action="/admin/products/create/<%=category._id%> " method="post">
             <div class="input-group">
                 <label>Name: </label>

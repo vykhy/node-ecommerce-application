@@ -14,11 +14,12 @@
                 <% locals.product.images.forEach((image, index )=> { %>
                     <img class="product-image-thumbnails" height="60px" width="60px" src="<%= image %>" alt="<%= product.name+'-'+index %> ">
                 <% })  %>     
-                <a href="/admin/products/images/<%= product._id %> ">Edit product images</a>
+                <a class="btn btn-primary" href="/admin/products/images/<%= product._id %> ">Edit product images</a>
                 <br>
             </div> 
         </div>
-        <form action="/admin/products/update/<%=product._id%>" method="POST">
+        <div class="container">
+<form action="/admin/products/update/<%=product._id%>" method="POST">
             <div class="input-group">
                 <label>Name: </label>
                 <input type="text" name="name" id="" value="<%=product.name%>">
@@ -47,6 +48,8 @@
             <% }) %> 
             <input type="submit">  
         </form>
+        </div>
+        
     </div>
     
 

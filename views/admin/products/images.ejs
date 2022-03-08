@@ -7,11 +7,10 @@
             <div class="input-group">
                 <input type="file" name="images" multiple id="image-input">
                 <div id="images"></div>
-                <button type="submit">Upload</button>
             </div>
+                <button class="btn btn-primary" type="submit">Upload</button>
         </form>
-    </div>
-    
+    </div>    
 
     <script>
         const input = document.querySelector('#image-input')
@@ -20,8 +19,8 @@
             images.innerHTML = ''
             for(let i =0, l=input.files.length; i<l;i++){
                 let img = document.createElement('img')
+                img.classList.add('add-product-img')
                 const url = URL.createObjectURL(input.files[i])
-                console.log(url)
                 img.src = url
                 images.appendChild(img)
             }

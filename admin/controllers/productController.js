@@ -124,6 +124,18 @@ exports.createProduct = async (req, res) => {
   const { name, description, longDescription, price, sellingPrice, ...data } =
     req.body;
   const catId = req.params.catId;
+  if (anyIsEmpty([name, description, longDescription, price, sellingPrice])) {
+    category = await Category.findOne({ _id: catId });
+    return res.render("admin/products/create", {
+      name,
+      category,
+      description,
+      longDescription,
+      price,
+      sellingPrice,
+      error: "Fill out all necessary fields",
+    });
+  }
 
   try {
     const product = await Product.create({

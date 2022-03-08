@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=product.name %>  </title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <h1><%=product.name %> </h1>
-    <p><%= product.description %> </p>
-    <% details.forEach(detail => { %> 
-        <div>
-            <p><%= detail[0] %>: <%= detail[1] %>    </p>
-        </div>
-    <% }) %> 
-    <form action='/admin/products/delete/<%=product._id%> ' method="post">
-        <button type="submit">Delete</button>
-        <a id="back" href="">Go back</a>
-    </form>
+    <%- include('../includes/nav') %> 
+    <div class="container">
+      <h1><%=product.name %></h1>
+      <p><%= product.description %></p>
+      <% details.forEach(detail => { %>
+      <div>
+        <p><%= detail[0] %>: <%= detail[1] %></p>
+      </div>
+      <% }) %>
+      <form action="/admin/products/delete/<%=product._id%> " method="post">
+        <button class="btn btn-danger" type="submit">Delete</button>
+        <a class="btn btn-primary" id="back" href="">Go back</a>
+      </form>
+    </div>
 
     <script>
-        document.querySelector('#back').href = document.referrer
+      document.querySelector("#back").href = document.referrer;
     </script>
-</body>
+  </body>
 </html>
