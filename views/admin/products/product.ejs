@@ -24,9 +24,9 @@
                 <p><%= detail[0] %>: <%= detail[1] %>    </p>
             </div>
         <% }) %> 
-
-        <a href="/admin/products/update/<%=product._id%>">Edit</a><br>
-        <a href="/admin/products/delete/<%=product._id%>">Delete</a><br>
+<div class="flex justify-content-end">
+        <a class="btn btn-warning mr-2" href="/admin/products/update/<%=product._id%>">Edit</a><br>
+        <a class="btn btn-danger" href="/admin/products/delete/<%=product._id%>">Delete</a><br></div>
     </div>
     <script>
         let productImage = document.querySelector('.product-image')   

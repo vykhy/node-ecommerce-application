@@ -3,9 +3,9 @@
     <%- include('../includes/nav') %> 
     <div class="container">
         <% categories.forEach((category) => { %> 
-            <h1>Category - <%=category.name %> </h1>
+            <h3>Category - <%=category.name %> </h3>
             <p><%= category.description %> </p>
-            <h4>Properties: </h3>
+            <h5>Properties: </h5>
             <% category.attributes.forEach(function(attribute){ %> 
             <%= attribute %> | 
         <% }) %> 

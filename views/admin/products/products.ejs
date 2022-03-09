@@ -2,17 +2,21 @@
 <body>
     <%- include('../includes/nav') %> 
     <div class="container">
-        <% products.forEach((product) => { %> 
-            <h1>product - <%=product.name || product._id%> </h1>
-            <p><%= product.description %> </p>
-            <div>Deleted: <%= !product.available %> </div>
+        <h1 class="my-2">Products</h1>
+        <% products.forEach((product) => { %>
+            <div class="pt-2">
+                <h3><%=product.name || product._id%> </h3>
+                <p><%= product.description %> </p>
+                <div>Deleted: <%= !product.available %> </div>
+                
+                <div class="d-flex justify-content-end mb-5 border-bottom pb-3 pt-3">
+                    <a class="btn btn-outline btn-outline-primary" href="/products/<%=product._id%> ">View this as user</a> <br>
+                    <a class="btn btn-primary mx-3" href="/admin/products/<%=product._id%> ">View this as admin</a><br>
+                    <a class="btn btn-warning" href="/admin/products/update/<%=product._id%>">Edit</a><br>
+                    <a class="btn bg-danger text-light ml-3" href="/admin/products/delete/<%=product._id%>">Delete</a><br>
+                </div>
+            </div> 
             
-            <div class="d-flex justify-content-end mb-5 border-bottom pb-3 pt-3">
-                <a class="btn btn-outline btn-outline-primary" href="/products/<%=product._id%> ">View this as user</a> <br>
-                <a class="btn btn-primary mx-3" href="/admin/products/<%=product._id%> ">View this as admin</a><br>
-                <a class="btn btn-warning" href="/admin/products/update/<%=product._id%>">Edit</a><br>
-                <a class="btn bg-danger text-light ml-3" href="/admin/products/delete/<%=product._id%>">Delete</a><br>
-            </div>
             
         <% }) %> 
     </div>
