@@ -1,0 +1,20 @@
+<%- include('../includes/head') %> 
+<body>
+    <%- include('../includes/navbar') %>
+    <div class="container">
+        <% if(reviews.length == 0){ %>
+            <h1>This product has no reviews</h1>
+        <% }else {  %> 
+            <% reviews.forEach((review) => {  %> 
+                <div class="card p-2 mb-2">
+                    <div class="font-weight-bold"><%= review.userId.name %> </div>
+                    <p><%= review.review %> </p>
+                    <span class="font-weight-bold"><% if(review.verified){ %> Verified Purchase <% } %> </span>
+                </div>
+            <% }) %> 
+        <% } %> 
+        
+    </div>
+    <%- include('../includes/footer') %> 
+</body>
+</html>

@@ -23,6 +23,7 @@ const categoryRouter = require("./routes/category");
 const productRouter = require("./routes/product");
 const cartRouter = require("./routes/cart");
 const orderRouter = require("./routes/order");
+const reviewRouter = require("./routes/review");
 
 //CUSTOM MIDDLEWARE
 const isAuth = require("./middlewares/isAuth");
@@ -77,6 +78,7 @@ app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
+app.use("/reviews", reviewRouter);
 
 //test route
 app.get("/protected", (req, res) => {
@@ -104,7 +106,7 @@ app.listen(PORT);
  * ADMIN PAGES DESIGN   **
  * ADMIN DASHBOARD
  * BILLING
- * IMPLEMENT REVIEWS
+ * IMPLEMENT REVIEWS    *
  * IMPLEMENT REDIS
  *  - products
  *  - recommendations
