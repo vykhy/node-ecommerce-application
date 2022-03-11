@@ -1,40 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter your address</title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <h4>Enter your shipping address</h4>
-    <%= locals.error %> 
-    <form action="/order/address/<%= locals.orderId %> " method="post">
-        <div class="input-group">
-            <label>Country: </label>
-            <input type="text" name="country" id="" required <% if(locals.country){ %>value="<%=country%>">   <% } %>
-        </div>
-        <div class="input-group">
-            <label>Province/state: </label>
-            <input type="text" name="province" id="" required <% if(locals.province){ %>value="<%=province%>">   <% } %>
-        </div>
-        <div class="input-group">
-            <label>City: </label>
-            <input type="text" name="city" id="" <% if(locals.city){ %>value="<%=city%>">   <% } %>
-        </div>
-        <div class="input-group">
-            <label>Street1: </label>
-            <input type="text" name="street1" id="" required <% if(locals.street1){ %>value="<%=street1%>">   <% } %>
-        </div>
-        <div class="input-group">
-            <label>Street2: </label>
-            <input type="text" name="street2" id="" <% if(locals.street2){ %>value="<%=street2%>">   <% } %>
-        </div>
-        <div class="input-group">
-            <label>ZIP/PIN code: </label>
-            <input type="text" name="zip" id="" required <% if(locals.zip){ %>value="<%=zip%>">   <% } %>
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+    <%- include('../includes/navbar') %>
+    <div class="container">
+        <h4>Enter your shipping address</h4>
+        <%= locals.error %> 
+        <form action="/order/address/<%= locals.orderId %> " method="post">
+            <div class="input-group">
+                <label>Country: </label>
+                <input type="text" name="country" id="" required <% if(locals.country){ %>value="<%=country%>">   <% } %>
+            </div>
+            <div class="input-group">
+                <label>Province/state: </label>
+                <input type="text" name="province" id="" required <% if(locals.province){ %>value="<%=province%>">   <% } %>
+            </div>
+            <div class="input-group">
+                <label>City: </label>
+                <input type="text" name="city" id="" <% if(locals.city){ %>value="<%=city%>">   <% } %>
+            </div>
+            <div class="input-group">
+                <label>Street1: </label>
+                <input type="text" name="street1" id="" required <% if(locals.street1){ %>value="<%=street1%>">   <% } %>
+            </div>
+            <div class="input-group">
+                <label>Street2: </label>
+                <input type="text" name="street2" id="" <% if(locals.street2){ %>value="<%=street2%>">   <% } %>
+            </div>
+            <div class="input-group">
+                <label>ZIP/PIN code: </label>
+                <input type="text" name="zip" id="" required <% if(locals.zip){ %>value="<%=zip%>">   <% } %>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+
+    </div> 
+    
+<%- include('../includes/footer') %> 
 </body>
 </html>

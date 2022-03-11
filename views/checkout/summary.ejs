@@ -1,33 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - summary</title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <h3>Order summary</h3>
+    <%- include('../includes/navbar') %>
+    <div class="container">
+        <h3>Order summary</h3>
     <%= locals.error %> 
     <div><%= locals.message %> </div>
-    <div><%= locals.status %> </div>
+    <div class="font-weight-bold mb-3">Order status: <%= locals.status %> </div>
 
     <% locals.products.forEach(product => {  %> 
-        <div>
+        <div class="border-bottom mb-2">
             <a href="/products/<%=product._id%> ">
                 <h4><%= product.name %> </h4>
                 <div><%= product.description %> </div>
                 <div>Quantity: <%= product.quantity %> </div>
                 <div>Cost per unit: <%= product.sellingPrice %> </div>
                 <div>Total Price: <strike><%= product.rPrice %> </strike><%= product.sPrice %> </div>
-                <b><%= product.saved %> </b>
+                <b>Saved: <%= product.saved %> </b>
             </a>        
         </div>
     <% }) %> 
     <b>Order total: </b><strike><%= locals.total %></strike> <%= locals.sellingTotal %> <br>
     <b>Saved: </b><%= locals.saved %> 
     <form action="/order/address/<%= locals.order %>" method="GET">
-        <button type="submit">Proceed</button>
+        <button class="btn btn-primary" type="submit">Proceed</button>
     </form>
+    </div>
+    
+    <%- include('../includes/footer') %>
 </body>
 </html>

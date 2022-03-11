@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-</head>
+<%- include('../includes/head') %> 
 <body>
-    <div><input type="checkbox" name="<%=product%> " id="" checked="<%=product.included%> " ></div>
+    <%- include('../includes/navbar') %>
+    <div class="container">
+        <div><input type="checkbox" name="<%=product%> " id="" checked="<%=product.included%> " ></div> 
+    </div>
+<%- include('../includes/footer') %> 
 </body>
 </html>
 

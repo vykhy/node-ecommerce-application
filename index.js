@@ -106,7 +106,7 @@ app.listen(PORT);
  * ADMIN PAGES DESIGN   **
  * ADMIN DASHBOARD
  * BILLING
- * IMPLEMENT REVIEWS    *
+ * IMPLEMENT REVIEWS    **
  * IMPLEMENT REDIS
  *  - products
  *  - recommendations

@@ -15,16 +15,16 @@
                 <div>Include at checkout: <input type="checkbox" name="<%=product.productId._id%>" id="" checked="<%=product.included%>" ></div>
                 <% } else { %> <h3>This product has been deleted</h3>
                 <% } %> 
-                <a href="/cart/remove/<%= product.productId._id %>">Remove</a>
+                <a class="btn btn-danger mr-3" href="/cart/remove/<%= product.productId._id %>">Remove</a>
             <% }else {  %> 
                 <h3>This product has been deleted</h3>
             <% } %> 
             
         <% })} %>
-        <button type="submit">Proceed to checkout</button>
+        <button class="btn btn-success" type="submit">Proceed to checkout</button>
     </form>
     <form action="/cart/empty" method="post">
-        <button type="submit">Empty cart</button>
+        <button class="btn btn-danger" type="submit">Empty cart</button>
     </form>
      
 <%- include('../includes/footer') %> 
