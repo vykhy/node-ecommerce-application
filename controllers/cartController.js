@@ -56,29 +56,35 @@ exports.addToCart = async (req, res) => {
 exports.checkout = async (req, res) => {
   const { ...data } = req.body;
 
+  // no item in cart
   if (!Object.keys(data).length > 0) {
     res.render("carts/cart", { message: "No item in cart!" });
     return;
   }
 
+  // products from cart, price verified from DB, and price calculated
   let finalProducts = await checkOutService.filterProductsAndCalculatePrice(
     req,
     data
   );
 
+  // if no product after filtering from DB
   if (finalProducts.length <= 0) {
     res.send("No item selected for checkout!");
     return;
   }
 
+  // format image path
   finalProducts.forEach((product) => {
     formatImagePath(product);
   });
 
+  // get total, actual total, and amount saved
   const { total, sellingTotal, saved } =
     checkOutService.calculateTotals(finalProducts);
   let order;
 
+  // initiate order
   try {
     const exists = await Order.findOne({
       customer: req.session.uid,

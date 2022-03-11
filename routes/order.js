@@ -1,8 +1,14 @@
 const router = require("express").Router();
+const Order = require("../models/Order");
 const orderController = require("../controllers/orderController");
 
 //view orders of current user
 router.get("/", orderController.getOrders);
+
+router.get("/orders", async (req, res) => {
+  const orders = await Order.find();
+  res.send(`<pre>${orders}</pre>`);
+});
 
 //view a single order
 router.get("/:orderId", orderController.getOrder);

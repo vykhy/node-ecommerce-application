@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+const Order = require("../models/Order");
 const Review = require("../models/Review");
 const { anyIsEmpty } = require("../services/functions");
 
@@ -18,8 +20,8 @@ exports.getReviews = async (req, res) => {
 exports.createReview = async (req, res) => {
   const reviewText = req.body.review;
   const userId = req.session.uid;
-  const verified = false;
-  const productId = req.params.productId;
+  let verified = false;
+  const productId = mongoose.Types.ObjectId(req.params.productId);
 
   if (anyIsEmpty([reviewText, userId, productId])) {
     return res.send(
@@ -32,6 +34,11 @@ exports.createReview = async (req, res) => {
     return res.send("Dont mess with the source code motherfucker");
   }
   try {
+    // check if user has already purchased this product before
+    const orders = await Order.find({
+      "products._id": productId,
+    });
+    if (orders.length > 0) verified = true;
     const review = await Review.create({
       userId,
       productId,
@@ -45,4 +52,20 @@ exports.createReview = async (req, res) => {
     return res.send(error.message);
   }
   return res.send("Done");
+};
+
+// delete review
+exports.deleteReview = async (req, res) => {
+  const id = mongoose.Types.ObjectId(req.params.productId);
+  try {
+    const review = await Review.findOneAndDelete({
+      _id: id,
+      userId: req.session.uid,
+    });
+    if (review) {
+      res.send("Review deleted successfully");
+    }
+  } catch (error) {
+    res.send(error.message);
+  }
 };

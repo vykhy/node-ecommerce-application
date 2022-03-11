@@ -5,6 +5,9 @@ a {
   color: black;
   text-decoration: none;
 }
+li {
+  list-style: none;
+}
 .home-product-image-container {
   display: flex;
   width: 100%;
