@@ -1,4 +1,13 @@
 <%- include('../includes/head') %>
 <body>
-  <%- include('../includes/navbar') %> <%- include('../includes/footer') %>
+  <%- include('../includes/navbar') %>
+  <div class="container min-vh-100">
+    <h3>Pay <b><%= amount %> </b> now</h3>
+    <form action="/order/billing/<%= orderId %> " method="POST">
+      <button class="btn btn-secondary" type="submit" id="checkout-button">
+        Checkout
+      </button>
+    </form>
+    <%- include('../includes/footer') %>
+  </div>
 </body>

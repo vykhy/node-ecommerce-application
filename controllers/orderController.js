@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const anyIsEmpty = require("../services/functions").anyIsEmpty;
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 /**
  * This function fetches and renders all the orders of the current user
@@ -33,7 +34,7 @@ exports.getOrder = async (req, res) => {
     if (!order) {
       return res.send("There was an error. Order not found.");
     }
-    console.log(order);
+    //console.log(order);
     return res.render("orders/order", { order });
   } catch (error) {
     res.send(error.message);
@@ -138,13 +139,114 @@ exports.addAddress = async (req, res) => {
       street2,
       zip,
     };
+    order.stage = "address";
     order.status = "pending";
     order = await Order.findOneAndUpdate(
       { _id: orderId, userId: req.session.uid },
       order
     );
-    return res.render("checkout/billing", { order: order._id });
+    return res.redirect(`checkout/billing/${orderId}`);
   } catch (error) {
     res.send(error.message);
   }
 };
+
+exports.getBillingPage = async (req, res) => {
+  const orderId = req.params.orderId;
+  try {
+    const order = await Order.findOne({ _id: orderId });
+    return res.render("checkout/billing", { amount: order.total, orderId });
+  } catch (error) {
+    return res.send("There was an error. Please try again");
+  }
+};
+
+exports.processPayment = async (req, res) => {
+  const orderId = req.params.orderId;
+  const SUCCESS_URL = `${process.env.SITE_URL}/checkout/success`;
+  //get the order
+  let order;
+  try {
+    order = await Order.findOne({
+      _id: orderId,
+      status: "pending",
+      stage: "address",
+    });
+  } catch (error) {
+    return res.render("errors/error", {
+      error: { message: "There was an error" },
+    });
+  }
+  //console.log(order.products);
+  try {
+    // call stripe api
+    const session = await stripe.checkout.sessions.create({
+      line_items: order.products.map((item) => ({
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: item.name,
+            description: item.description,
+          },
+          unit_amount: item.sellingPrice * 100, // rupees to paise
+        },
+        quantity: item.quantity,
+      })),
+      mode: "payment",
+      success_url: SUCCESS_URL,
+      cancel_url: `${process.env.SITE_URL}/checkout/cancel`,
+    });
+
+    // if payment successful, update order data in database
+    // handleWhenPaymentSucceededOrFailed()
+
+    // for now mark as complete
+    try {
+      const order = await Order.findOneAndUpdate(
+        { _id: orderId },
+        {
+          stage: "paid",
+          status: "completed",
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    res.redirect(303, session.url);
+  } catch (error) {
+    console.log(error);
+    return res.render("errors/error", {
+      error: { message: "There was an error" },
+    });
+  }
+};
+
+function handleWhenPaymentSucceededOrFailed() {
+  const sig = request.headers["stripe-signature"];
+  const body = request.body;
+
+  let event = null;
+
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+  } catch (err) {
+    // invalid signature
+    response.status(400).end();
+    return;
+  }
+
+  let intent = null;
+  switch (event["type"]) {
+    case "payment_intent.succeeded":
+      intent = event.data.object;
+      console.log("Succeeded:", intent.id);
+      break;
+    case "payment_intent.payment_failed":
+      intent = event.data.object;
+      const message =
+        intent.last_payment_error && intent.last_payment_error.message;
+      console.log("Failed:", intent.id, message);
+      break;
+  }
+}

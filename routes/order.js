@@ -25,4 +25,8 @@ router.get("/address/:orderId", orderController.getAddAddress);
 //add address to order
 router.post("/address/:orderId", orderController.addAddress);
 
+//return page to pay
+router.get("/billing/:orderId", orderController.getBillingPage);
+
+router.post("/billing/:orderId", orderController.processPayment);
 module.exports = router;

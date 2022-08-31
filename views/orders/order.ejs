@@ -12,27 +12,37 @@
               <div class="text "><span class="font-weight-bold">Order amount: <%= order.total %></sdivan> </div>
               <div class><span class="font-weight-bold">Order status: <%= order.status %></span></div>
               <div class="text font-weight-bold">Order quantity: <%= order.products.length %> </div>
-                    <div class="d-flex mt-3 mb-3">
-                        <% order.products.forEach(product => {  %>
-                            <div class="card mr-3 mb-3 text-end" style="width: 18rem;">
-                                <img src="<%= product.images.length > 0 ? product.images[0] : '/images/default.jpg' %> " class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <div class="font-weight-bold">
-                        Product name: <%= product.name %>
-                    </div>
-                                <div class="card-text">Product Quantity: <%= product.quantity %></div>
-                                <div>
-                        Price per unit:<%= product.sellingPrice %> 
-                                            </div><div>
-                        Total price:<%= product.sPrice %>  
+               <div class="d-flex mt-3 mb-3">
+                  <% order.products.forEach(product => {  %>
+                    <div class="card mr-3 mb-3 text-end" style="width: 18rem;">
+                      <img src="<%= product.images.length > 0 ? product.images[0] : '/images/default.jpg' %> " class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <div class="font-weight-bold">
+                          Product name: <%= product.name %>
                         </div>
-                                </div>
-
-
-                            </div>
-                    <% }) %> 
+                        <div class="card-text">Product Quantity: <%= product.quantity %></div>
+                        <div>
+                            Price per unit:<%= product.sellingPrice %> 
+                        </div>
+                        <div>
+                            Total price:<%= product.sPrice %>  
+                        </div>
+                      </div>
+                    </div>
+                  <% }) %> 
                 </div>
-              <a href="/order/delete/<%= order._id %> " class="btn mt-2 btn-primary">Remove</a>
+                <a href="/order/delete/<%= order._id %> " class="btn mt-2 btn-primary">Remove</a>
+                
+                <% if( order.stage !== 'paid') {
+                  if(order.stage === 'started' ) { %> 
+                      <a href="/order/address/<%= order._id %> " class="btn mt-2 btn-primary">Add address</a>
+                  <% }else{ %>
+                    <a href="/order/address/<%= order._id %> " class="btn mt-2 btn-primary">Edit Address</a>
+                  <% } %> 
+
+                  <% if(order.stage !== 'started') { %> 
+                    <a href="/order/billing/<%= order._id %> " class="btn mt-2 btn-primary">Pay now</a>
+                <% }} %> 
             </div>
           </div>
     </div>

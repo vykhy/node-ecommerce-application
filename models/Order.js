@@ -12,6 +12,10 @@ const Order = new mongoose.Schema(
       type: String,
       default: "initiated",
     },
+    stage: {
+      type: String,
+      default: "started", // started  || address  || paid
+    },
     total: {
       type: Number,
       required: true,

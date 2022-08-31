@@ -1,7 +1,8 @@
 <%- include('../includes/head') %> 
 <body>
     <%- include('../includes/navbar') %> 
-    <h3>My Cart</h3>
+    <div class="container">
+        <h3>My Cart</h3>
     <%= locals.error %> 
     <%= locals.message %> 
     <form action="/cart/checkout" method="post">
@@ -24,8 +25,10 @@
         <button class="btn btn-success" type="submit">Proceed to checkout</button>
     </form>
     <form action="/cart/empty" method="post">
-        <button class="btn btn-danger" type="submit">Empty cart</button>
+        <button class="btn btn-danger mt-4" type="submit">Empty cart</button>
     </form>
+    </div>
+    
      
 <%- include('../includes/footer') %> 
 </body>
